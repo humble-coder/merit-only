@@ -1,0 +1,31 @@
+<!doctype HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="author" content="Mark A. Brown">
+		<title>Merit Only</title>
+		{{#if showTests}}
+			<link rel="stylesheet" href="/vendor/mocha.css">
+	  {{/if}}
+	  <script src="/vendor/HTML.min.js"></script>
+	</head>
+	<body>
+		{{{body}}}
+
+		{{#if showTests}}
+			<script></script>
+			<div id="mocha"></div>
+			<script src="vendor/mocha.js"></script>
+			<script src="vendor/chai.js"></script>
+		  <script>
+		  	mocha.ui('tdd');
+		  	var assert = chai.assert;
+		  </script>
+			<script src="qa/tests-global.js"></script>
+			{{#if pageTestScript}}
+				<script src="{{pageTestScript}}"></script>
+			{{/if}}
+			<script>mocha.run();</script>
+		{{/if}}
+	</body>
+</html>

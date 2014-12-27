@@ -1,0 +1,23 @@
+{
+  "name": "meritOnly",
+  "version": "1.0.0",
+  "description": "a job-applicant form processor that scrambles potentially biasing information",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "mark a. brown",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.10.6",
+    "express-handlebars": "^1.1.0"
+  },
+  "README": "NA",
+  "repository": "NA",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.0.1",
+    "nightwatch": "^0.5.35"
+  }
+}
