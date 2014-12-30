@@ -1,12 +1,13 @@
-<form id="applicantForm" method="post" action="/save-applicant" enctype="application/x-www-form-urlencoded">
+<form id="applicantForm" method="post" action="/save-applicant" enctype="application/json">
 	<section id="contactInformation">
 		<label for="firstName">First Name</label>
-		<input id="firstName" type="text" inputmode="latin-name" maxlength="30" minlength="1" required name="firstName">
+		<input id="firstName" type="text" inputmode="latin-name" name="firstName" maxlength="30" minlength="1" required>
 		<label for="lastName">Last Name</label>
-		<input id="lastName" type="text" inputmode="latin-name" maxlength="30" minlength="1" required name="lastName">
+		<input id="lastName" type="text" inputmode="latin-name" name="lastName" maxlength="30" minlength="1" required>
 		<label for="email">Email</label>
-		<input id="email" type="email" maxlength="30" pattern="\S+@\w+\.\w+" required>
+		<input id="email" type="email" maxlength="30" name="email" pattern="\S+@\w+\.\w+" required>
 		<label for"phoneNumber">Phone Number</label>
-		<input type="tel" maxlength="20" required>
+		<input id="phoneNumber" type="tel" maxlength="20" name="phoneNumber" required>
 	</section>
+	<input type="submit" value="Finish">
 </form>

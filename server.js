@@ -16,12 +16,28 @@ app.use(function(req, res, next) {
 	next();
 });
 
+app.use(function(req, res, next) {
+	var data = '';
+	req.setEncoding('utf8');
+	req.on('data', function(chunk) {
+		data += chunk;
+	});
+
+	req.on('end', function() {
+		req.body = data;
+		next();
+	});
+});
+
 app.get('/', function(req, res) {
 	res.render('home', {pageTestScript: 'qa/tests-home.js'});
 });
 
-app.get('/applicant', function(req, res) {
-	res.render('applicant', {pageTestScript: 'qa/tests-applicant.js'});
+app.get('/applicant/:id', function(req, res) {
+	res.render('applicant');
+});
+
+app.post('/save-applicant', function(req, res) {
 });
 
 app.use(function(req, res, next) {
