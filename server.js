@@ -2,7 +2,18 @@ var http = require('http'),
 express = require('express'),
 exphbs = require('express-handlebars'),
 app = express(),
-handlebars = exphbs.create({defaultLayout: 'main'});
+handlebars = exphbs.create({defaultLayout: 'main'}),
+mongoose = require('mongoose'),
+bodyParser = require('./bodyParser.js'),
+credentials = require('./credentials.js');
+
+var opts = {
+	server: {
+		socketOptions: { keepAlive: 1}
+	}
+};
+
+mongoose.connect(credentials.mongo.development.connectionString, opts);
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -21,7 +32,6 @@ app.use(function(req, res, next) {
 	req.setEncoding('utf8');
 	req.on('data', function(chunk) {
 		data += chunk;
-		console.log(data);
 	});
 
 	req.on('end', function() {
@@ -39,6 +49,8 @@ app.get('/applicant/:id', function(req, res) {
 });
 
 app.post('/save-applicant', function(req, res) {
+  var applicant = bodyParser.parse(req.body);
+  credentials.
 });
 
 app.use(function(req, res, next) {

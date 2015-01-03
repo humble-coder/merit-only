@@ -1,4 +1,4 @@
-function bodyParser(string) {
+function bodyParse(string) {
 	var isKey = true,
 	result = {},
 	key = "",
@@ -12,6 +12,8 @@ function bodyParser(string) {
 				parsedVal = decodePercent("%" + string[i+1] + string[i + 2]);
 				i += 2;
 			}
+			if (string[i] === '+')
+				parsedVal = ' ';
 			parsedVal.length ? (isKey ? key += parsedVal : value += parsedVal) : (isKey ? key += string[i] : value += string[i]);
 			if (parsedVal.length) parsedVal = "";
 			if (i === length - 1) result[key] = value;
@@ -70,7 +72,11 @@ function decodePercent(string) {
 	return table[string];
 }
 
-var s = "firstName=Mark&lastName=Brown&email=mark.philosophe%40gmail.com&phoneNumber=%28845%29+853-6256";
-console.log(bodyParser(s));
+exports.parse = function(string) {
+	return bodyParse(string);
+};
+
+// var s = "firstName=Mark&lastName=Brown&email=mark.philosophe%40gmail.com&phoneNumber=%28845%29+853-6256";
+// console.log(bodyParser(s));
 
 // firstName=Mark&lastName=Brown&email=mark.philosophe%40gmail.com&phoneNumber=%28845%29+853-6256
