@@ -48,19 +48,19 @@ app.get('/', function(req, res) {
 });
 
 app.post('/save-applicant', function(req, res) {
-	var form = new formidable.IncomingForm();
-	form.encoding = 'utf-8';
-	form.uploadDir = 'uploads';
-	form.keepExtensions = true;
-	form.parse(req, function(err, fields, files) {
+	// var form = new formidable.IncomingForm();
+	// form.encoding = 'utf-8';
+	// form.uploadDir = 'uploads';
+	// form.keepExtensions = true;
+	// form.parse(req, function(err, fields, files) {
 		
-		// var applicant = new Applicant({
-		// 	name: fields.firstName + ' ' + fields.lastName,
-		// 	email: fields.email,
-		// 	phoneNumber: fields.phoneNumber,
-		// 	resume: files
-		// })
-	});
+	// 	// var applicant = new Applicant({
+	// 	// 	name: fields.firstName + ' ' + fields.lastName,
+	// 	// 	email: fields.email,
+	// 	// 	phoneNumber: fields.phoneNumber,
+	// 	// 	resume: files
+	// 	// })
+	// });
   // var applicant = new Applicant({
   // 	name: applicantData.firstName + ' ' + applicantData.lastName,
   // 	email: applicantData.email,
