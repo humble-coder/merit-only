@@ -75,8 +75,3 @@ function decodePercent(string) {
 exports.parse = function(string) {
 	return bodyParse(string);
 };
-
-// var s = "firstName=Mark&lastName=Brown&email=mark.philosophe%40gmail.com&phoneNumber=%28845%29+853-6256";
-// console.log(bodyParser(s));
-
-// firstName=Mark&lastName=Brown&email=mark.philosophe%40gmail.com&phoneNumber=%28845%29+853-6256
