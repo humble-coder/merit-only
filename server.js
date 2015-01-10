@@ -5,7 +5,8 @@ app = express(),
 handlebars = exphbs.create({defaultLayout: 'main'}),
 mongoose = require('mongoose'),
 bodyParser = require('./bodyParser.js'),
-credentials = require('./credentials.js');
+credentials = require('./credentials.js'),
+Applicant = require('./models/applicant.js');
 
 var opts = {
 	server: {
@@ -13,7 +14,7 @@ var opts = {
 	}
 };
 
-mongoose.connect(credentials.mongo.development.connectionString, opts);
+// mongoose.connect(credentials.mongo.development.connectionString, opts);
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -32,6 +33,7 @@ app.use(function(req, res, next) {
 	req.setEncoding('utf8');
 	req.on('data', function(chunk) {
 		data += chunk;
+		console.log(data);
 	});
 
 	req.on('end', function() {
@@ -44,13 +46,25 @@ app.get('/', function(req, res) {
 	res.render('home', {pageTestScript: 'qa/tests-home.js'});
 });
 
-app.get('/applicant/:id', function(req, res) {
-	res.render('applicant');
+app.post('/save-applicant', function(req, res) {
+	console.log(req);
+  // var applicantData = bodyParser.parse(req.body);
+  // var applicant = new Applicant({
+  // 	name: applicantData.firstName + ' ' + applicantData.lastName,
+  // 	email: applicantData.email,
+  // 	phoneNumber: applicantData.phoneNumber
+  // });
+  // applicant.save(function(err, applicant, numAffected) {
+  // 	if (applicant)
+  // 		res.redirect(303, '/applicant/' + applicant.id);
+  // });
 });
 
-app.post('/save-applicant', function(req, res) {
-  var applicant = bodyParser.parse(req.body);
-  credentials.
+app.get('/applicant/:id', function(req, res) {
+	Applicant.findById(req.params.id, function(err, applicant) {
+		if (applicant)
+			res.render('applicant', applicant);
+	});
 });
 
 app.use(function(req, res, next) {

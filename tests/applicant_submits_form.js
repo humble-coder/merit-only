@@ -9,7 +9,7 @@ module.exports = {
       .setValue('#phoneNumber', '555-555-5555')
       .click('input[type=submit]')
       .pause(1000)
-      .assert.containsText('#message', 'Application Completed')
+      .assert.containsText('#applicant', 'Application Completed')
       .end();
   }
 };
