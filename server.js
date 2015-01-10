@@ -14,7 +14,7 @@ var opts = {
 	}
 };
 
-// mongoose.connect(credentials.mongo.development.connectionString, opts);
+mongoose.connect(credentials.mongo.development.connectionString, opts);
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -47,17 +47,16 @@ app.get('/', function(req, res) {
 });
 
 app.post('/save-applicant', function(req, res) {
-	console.log(req);
-  // var applicantData = bodyParser.parse(req.body);
-  // var applicant = new Applicant({
-  // 	name: applicantData.firstName + ' ' + applicantData.lastName,
-  // 	email: applicantData.email,
-  // 	phoneNumber: applicantData.phoneNumber
-  // });
-  // applicant.save(function(err, applicant, numAffected) {
-  // 	if (applicant)
-  // 		res.redirect(303, '/applicant/' + applicant.id);
-  // });
+  var applicantData = bodyParser.parse(req.body);
+  var applicant = new Applicant({
+  	name: applicantData.firstName + ' ' + applicantData.lastName,
+  	email: applicantData.email,
+  	phoneNumber: applicantData.phoneNumber
+  });
+  applicant.save(function(err, applicant, numAffected) {
+  	if (applicant)
+  		res.redirect(303, '/applicant/' + applicant.id);
+  });
 });
 
 app.get('/applicant/:id', function(req, res) {
