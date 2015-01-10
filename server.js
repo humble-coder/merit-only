@@ -1,10 +1,11 @@
 var http = require('http'),
+util = require('util'),
 express = require('express'),
 exphbs = require('express-handlebars'),
+formidable = require('formidable'),
 app = express(),
 handlebars = exphbs.create({defaultLayout: 'main'}),
 mongoose = require('mongoose'),
-bodyParser = require('./bodyParser.js'),
 credentials = require('./credentials.js'),
 Applicant = require('./models/applicant.js');
 
@@ -28,35 +29,47 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.use(function(req, res, next) {
-	var data = '';
-	req.setEncoding('utf8');
-	req.on('data', function(chunk) {
-		data += chunk;
-		console.log(data);
-	});
+// app.use(function(req, res, next) {
+// 	var data = '';
+// 	req.setEncoding('utf8');
+// 	req.on('data', function(chunk) {
+// 		data += chunk;
+// 		console.log(data);
+// 	});
 
-	req.on('end', function() {
-		req.body = data;
-		next();
-	});
-});
+// 	req.on('end', function() {
+// 		req.body = data;
+// 		next();
+// 	});
+// });
 
 app.get('/', function(req, res) {
 	res.render('home', {pageTestScript: 'qa/tests-home.js'});
 });
 
 app.post('/save-applicant', function(req, res) {
-  var applicantData = bodyParser.parse(req.body);
-  var applicant = new Applicant({
-  	name: applicantData.firstName + ' ' + applicantData.lastName,
-  	email: applicantData.email,
-  	phoneNumber: applicantData.phoneNumber
-  });
-  applicant.save(function(err, applicant, numAffected) {
-  	if (applicant)
-  		res.redirect(303, '/applicant/' + applicant.id);
-  });
+	var form = new formidable.IncomingForm();
+	form.encoding = 'utf-8';
+	form.uploadDir = 'uploads';
+	form.keepExtensions = true;
+	form.parse(req, function(err, fields, files) {
+		
+		// var applicant = new Applicant({
+		// 	name: fields.firstName + ' ' + fields.lastName,
+		// 	email: fields.email,
+		// 	phoneNumber: fields.phoneNumber,
+		// 	resume: files
+		// })
+	});
+  // var applicant = new Applicant({
+  // 	name: applicantData.firstName + ' ' + applicantData.lastName,
+  // 	email: applicantData.email,
+  // 	phoneNumber: applicantData.phoneNumber
+  // });
+  // applicant.save(function(err, applicant, numAffected) {
+  // 	if (applicant)
+  // 		res.redirect(303, '/applicant/' + applicant.id);
+  // });
 });
 
 app.get('/applicant/:id', function(req, res) {
